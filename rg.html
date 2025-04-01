@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>株式投資の基礎知識とコミュニティ | 日本投資家のための総合ガイド</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #f3ca27;
@@ -32,15 +32,19 @@
         
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
         }
         
         header {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            padding: 20px 0;
+            background: var(--primary-color);
+            padding: 15px 0;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
         }
         
         .header-content {
@@ -50,163 +54,520 @@
         }
         
         .logo {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: var(--text-dark);
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
         }
         
+        /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(243, 202, 39, 0.9), rgba(243, 202, 39, 0.8)), url('https://www.hrciopki.online/r1.jpg');
+            padding-top: 80px;
+            height: 100vh;
+            display: flex;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--primary-color);
+        }
+        
+        .hero-content {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+        
+        .hero-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-image {
+            flex: 1;
+            background: url('https://www.hrciopki.online/r1.jpg');
             background-size: cover;
             background-position: center;
-            color: var(--text-dark);
-            padding: 80px 0;
-            text-align: center;
             position: relative;
         }
         
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100px;
+            width: 200px;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color) 0%, rgba(243, 202, 39, 0) 100%);
+            z-index: 1;
+        }
+        
         .hero h1 {
-            font-size: 42px;
-            margin-bottom: 20px;
+            font-size: 4rem;
+            font-weight: 900;
             line-height: 1.2;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
         }
         
         .hero p {
-            font-size: 20px;
-            margin-bottom: 30px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            animation: fadeInUp 1s ease 0.3s forwards;
+            opacity: 0;
+            transform: translateY(20px);
         }
         
-        .btn {
-            display: inline-block;
-            padding: 14px 30px;
-            background-color: var(--line-color);
-            color: var(--text-light);
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(6, 199, 85, 0.3);
-        }
-        
-        .btn:hover {
-            background-color: #05a848;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(6, 199, 85, 0.4);
-        }
-        
-        .section {
-            padding: 80px 0;
-        }
-        
-        .section h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
-            text-align: center;
-            color: var(--text-dark);
-        }
-        
-        .section-subtitle {
-            font-size: 18px;
-            text-align: center;
-            margin-bottom: 50px;
-            color: #666;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .cards {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-        }
-        
-        .card {
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-            padding: 30px;
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 340px;
-            transition: all 0.3s ease;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
         }
         
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        .floating-element {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out;
         }
         
-        .card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--text-dark);
+        .e1 {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
         }
         
-        .card p {
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 20px;
+        .e2 {
+            width: 50px;
+            height: 50px;
+            top: 30%;
+            left: 25%;
+            animation-delay: 1s;
         }
         
-        .card-icon {
+        .e3 {
+            width: 70px;
+            height: 70px;
+            top: 60%;
+            left: 40%;
+            animation-delay: 2s;
+        }
+        
+        .e4 {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 60%;
+            animation-delay: 3s;
+        }
+        
+        .e5 {
             width: 60px;
             height: 60px;
+            top: 70%;
+            left: 80%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(30px, 30px) rotate(180deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-btn {
+            animation: fadeInUp 1s ease 0.6s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        /* Investment Section */
+        .investment {
+            padding: 120px 0;
+            background-color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 5px;
+            background-color: var(--primary-color);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #666;
+        }
+        
+        .investment-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .investment-item {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 40px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .investment-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .investment-item.featured {
+            grid-column: span 6;
+            grid-row: span 2;
+            background: linear-gradient(135deg, #fff 0%, #f9f9f9 100%);
+        }
+        
+        .investment-item.standard {
+            grid-column: span 6;
+        }
+        
+        .investment-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .investment-item h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .investment-item p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+        
+        .investment-icon {
+            width: 80px;
+            height: 80px;
             background-color: var(--primary-light);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
         }
         
-        .community {
-            background-color: var(--bg-light);
+        .investment-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+            top: 0;
+            left: 0;
+        }
+        
+        .investment-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .investment-btn-container {
             text-align: center;
+        }
+        
+        /* Risk Management Section */
+        .risk-management {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
+            position: relative;
+        }
+        
+        .risk-grid {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -20px;
+        }
+        
+        .risk-item {
+            flex: 0 0 33.333333%;
+            padding: 0 20px;
+            margin-bottom: 40px;
+        }
+        
+        .risk-box {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            height: 100%;
+            padding: 40px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .risk-box::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background-color: var(--primary-light);
+            opacity: 0.1;
+            border-radius: 50%;
+            top: -150px;
+            right: -150px;
+            z-index: 0;
+        }
+        
+        .risk-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .risk-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .risk-box p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .risk-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .risk-btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        /* Regulations Section */
+        .regulations {
+            padding: 120px 0;
+            background-color: #fff;
+            position: relative;
+        }
+        
+        .regulations-wrapper {
+            display: flex;
+            align-items: center;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .regulations-image {
+            flex: 0 0 40%;
+            padding-right: 60px;
+        }
+        
+        .regulations-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .regulations-content {
+            flex: 0 0 60%;
+        }
+        
+        .regulations-box {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .regulations-box:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .regulations-box h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+        
+        .regulations-box p {
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        .regulations-btn-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        /* Community Section */
+        .community {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .community-img {
+            position: relative;
+            margin: 50px auto;
+            max-width: 800px;
+        }
+        
+        .community-img img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        
+        .community-img::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--primary-color);
+            border-radius: 20px;
+            top: 15px;
+            left: 15px;
+            z-index: -1;
         }
         
         .community-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
         }
         
-        .community-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        .community-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
         }
         
-        .cta {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            text-align: center;
-            padding: 80px 0;
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 18px 40px;
+            background-color: var(--line-color);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(6, 199, 85, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
         
-        .cta h2 {
-            color: var(--text-dark);
-            margin-bottom: 30px;
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            z-index: -1;
         }
         
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(6, 199, 85, 0.4);
+        }
+        
+        .btn:hover::before {
+            width: 100%;
+        }
+        
+        /* Footer Styles */
         footer {
             background-color: var(--bg-dark);
             color: var(--text-light);
-            padding: 60px 0 30px;
+            padding: 80px 0 30px;
         }
         
         .footer-content {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
         
         .footer-column {
@@ -217,8 +578,20 @@
         
         .footer-column h3 {
             font-size: 18px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: var(--primary-light);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: 0;
+            left: 0;
         }
         
         .footer-column ul {
@@ -226,17 +599,19 @@
         }
         
         .footer-column ul li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         
         .footer-column ul li a {
             color: #aaa;
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            display: inline-block;
         }
         
         .footer-column ul li a:hover {
             color: var(--primary-light);
+            transform: translateX(5px);
         }
         
         .disclaimer {
@@ -267,6 +642,7 @@
         
         .line-icon:hover {
             transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 25px rgba(6, 199, 85, 0.4);
         }
         
         .line-icon img {
@@ -288,23 +664,103 @@
             justify-content: center;
             font-size: 12px;
             font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            }
+            70% {
+                transform: scale(1.1);
+                box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .investment-item.featured {
+                grid-column: span 12;
+            }
+            
+            .investment-item.standard {
+                grid-column: span 6;
+            }
+            
+            .regulations-image, .regulations-content {
+                flex: 0 0 100%;
+            }
+            
+            .regulations-image {
+                padding-right: 0;
+                margin-bottom: 50px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .hero-text, .hero-image {
+                flex: none;
+                width: 100%;
+            }
+            
+            .hero-text {
+                padding: 40px 20px;
+                text-align: center;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .hero-image {
+                height: 50vh;
+            }
+            
+            .hero-image::before {
+                display: none;
+            }
+            
+            .investment-item.standard {
+                grid-column: span 12;
+            }
+            
+            .risk-item {
+                flex: 0 0 50%;
+            }
         }
         
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 32px;
+                font-size: 2.5rem;
             }
             
             .hero p {
-                font-size: 18px;
+                font-size: 1.2rem;
             }
             
-            .section {
-                padding: 60px 0;
+            .section-header h2 {
+                font-size: 2.5rem;
             }
             
-            .card {
-                max-width: 100%;
+            .risk-item {
+                flex: 0 0 100%;
             }
             
             .line-icon {
@@ -323,7 +779,7 @@
 <body>
     <!-- LINE Icon -->
     <div class="line-icon" onclick="opensite()">
-        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZmZmZiI+PHBhdGggZD0iTTIyLjA0NiwxNi45NDZjMC0uMDYuMDUtNS4yMjQtNS4zNDktNy45MTEtNC41MjYtMi4yNzgtMTAuMDc0LDEuNzAyLTEwLjE0MSwxLjc1Ny0uMDY3LjA1NS0uMDg2LjE1Mi0uMDQzLjIyOWwuNzY4LDEuMzNjLjA0MS4wNzIuMTI1LjExLjIwNi4wOTUuMDgyLS4wMTUuMzAxLS4wOS43NTUtLjIyNCwyLjIzLS42NTUsNC40MDgtLjI5OCw2LjAwNC45ODEsMi41MjksMS42OCwzLjE1MSw0LjA2NSwyLjc5OCw1LjEzMS0uMjA4LjYyNS0uOTQzLDEuMDQ1LTEuODY0LDEuMDZsLTguNjI3LjAzNmMtMS4wNDYuMDAxLTEuODk2LS44MTYtMS44OTYtMS44MjN2LTcuNTg3YzAtMi43NywyLjcwNi01LjAxOSw2LjAzLTUuMDE5aDYuMThjMy4zMjQsMCw2LjAzLDIuMjQ5LDYuMDMsNS4wMTl2Ny41ODdjMCwuMzIyLS4wODguNjIxLS4yMzYuODgyLjE0NC4wNDguMjkuMDk0LjQzOC4xMzguMDQyLjAxMy4wODUuMDI2LjEyNy4wMzlhMS40NjQsMS40NjQsMCwwLDAsLjIzMS0uODI2Wm0tMy4xNzctNi44MzFjLjQyNSwwLC43Ny4zNDUuNzcuNzd2Mi44MTRhLjc3MS43NzEsMCwwLDEtLjc3Ljc3SDEyLjMwOGMtLjQyNSwwLS43Ny0uMzQ1LS43Ny0uNzd2LS42MWgzLjk2OWEuNTEuNTEsMCwxLDAsMC0xLjAySDExLjUzOHYtMS4xODRhLjc3MS43NzEsMCwwLDEsLjc3LS43N1pNOC45NTUsOS45MWEuNTE1LjUxNSwwLDAsMCwuNTE1LjUxNWguNTA5djEuMTg0SDkuNDdhLjUxLjUxLDAsMSwwLDAsMS4wMmguNTA5di42MWEuNzg0Ljc4NCwwLDAsMS0uNzcuNzdINi44OTJhLjc3MS43NzEsMCwwLDEtLjc3LS43N1Y5Ljg4OGMwLS40MjUuMzQ1LS43Ny43Ny0uNzdIMTBhLjUxNS41MTUsMCwwLDAsLjUxNS0uNUE1LDUsMCwwLDEsNS43MjgsMTJjLjI1MywyLjQ1MiwyLjM4OSw0LjQsNS4wMjcsNC40Nyw0LjY0Mi4xMjQsNS4yLTMuNTc4LDUuMzYtNS4wMjNBNS4xMzcsNS4xMzcsMCwwLDEsOC45NTUsOS45MVoiLz48L3N2Zz4=" alt="LINE">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZmZmZiI+PHBhdGggZD0iTTIyLjA0NiwxNi45NDZjMC0uMDYuMDUtNS4yMjQtNS4zNDktNy45MTEtNC41MjYtMi4yNzgtMTAuMDc0LDEuNzAyLTEwLjE0MSwxLjc1Ny0uMDY3LjA1NS0uMDg2LjE1Mi0uMDQzLjIyOWwuNzY4LDEuMzNjLjA0MS4wNzIuMTI1LjExLjIwNi4wOTUuMDgyLS4wMTUuMzAxLS4wOS43NTUtLjIyNGMyLjIzLS42NTUsNC40MDgtLjI5OCw2LjAwNC45ODEsMi41MjksMS42OCwzLjE1MSw0LjA2NSwyLjc5OCw1LjEzMS0uMjA4LjYyNS0uOTQzLDEuMDQ1LTEuODY0LDEuMDZsLTguNjI3LjAzNmMtMS4wNDYuMDAxLTEuODk2LS44MTYtMS44OTYtMS44MjN2LTcuNTg3YzAtMi43NywyLjcwNi01LjAxOSw2LjAzLTUuMDE5aDYuMThjMy4zMjQsMCw2LjAzLDIuMjQ5LDYuMDMsNS4wMTl2Ny41ODdjMCwuMzIyLS4wODguNjIxLS4yMzYuODgyLjE0NC4wNDguMjkuMDk0LjQzOC4xMzguMDQyLjAxMy4wODUuMDI2LjEyNy4wMzlhMS40NjQsMS40NjQsMCwwLDAsLjIzMS0uODI2Wm0tMy4xNzctNi44MzFjLjQyNSwwLC43Ny4zNDUuNzcuNzd2Mi44MTRhLjc3MS43NzEsMCwwLDEtLjc3Ljc3SDEyLjMwOGMtLjQyNSwwLS43Ny0uMzQ1LS43Ny0uNzd2LS42MWgzLjk2OWEuNTEuNTEsMCwxLDAsMC0xLjAySDExLjUzOHYtMS4xODRhLjc3MS43NzEsMCwwLDEsLjc3LS43N1pNOC45NTUsOS45MWEuNTE1LjUxNSwwLDAsMCwuNTE1LjUxNWguNTA5djEuMTg0SDkuNDdhLjUxLjUxLDAsMSwwLDAsMS4wMmguNTA5di42MWEuNzg0Ljc4NCwwLDAsMS0uNzcuNzdINi44OTJhLjc3MS43NzEsMCwwLDEtLjc3LS43N1Y5Ljg4OGMwLS40MjUuMzQ1LS43Ny43Ny0uNzdIMTBhLjUxNS41MTUsMCwwLDAsLjUxNS0uNUE1LDUsMCwwLDEsNS43MjgsMTJjLjI1MywyLjQ1MiwyLjM4OSw0LjQsNS4wMjcsNC40Nyw0LjY0Mi4xMjQsNS4yLTMuNTc4LDUuMzYtNS4wMjNBNS4xMzcsNS4xMzcsMCwwLDEsOC45NTUsOS45MVoiLz48L3N2Zz4=" alt="LINE">
         <div class="notification">1</div>
     </div>
 
@@ -332,42 +788,55 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">日本投資家アカデミー</div>
-                <button class="btn" onclick="opensite()">LINEで相談する</button>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="container">
-            <h1>株式投資の知識を深め、<br>プロフェッショナルと繋がる</h1>
-            <p>最新の市場動向から基本的な投資戦略まで、日本の投資家コミュニティと共に成長しましょう</p>
-            <button class="btn" onclick="opensite()">今すぐLINEに登録する</button>
+        <div class="floating-elements">
+            <div class="floating-element e1"></div>
+            <div class="floating-element e2"></div>
+            <div class="floating-element e3"></div>
+            <div class="floating-element e4"></div>
+            <div class="floating-element e5"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>株式投資の力を<br>最大限に引き出す</h1>
+                <p>プロフェッショナルの知識と最先端のアプローチで、日本の投資家コミュニティと共に成長しよう</p>
+                <div class="hero-btn">
+                    <button class="btn" onclick="opensite()">LINE公式アカウントに登録する</button>
+                </div>
+            </div>
+            <div class="hero-image"></div>
         </div>
     </section>
 
     <!-- Investment Methodology Section -->
-    <section class="section">
+    <section class="investment">
         <div class="container">
-            <h2>投資方法論</h2>
-            <p class="section-subtitle">様々な投資アプローチを理解し、ご自身に合った方法を見つけましょう</p>
+            <div class="section-header">
+                <h2>投資方法論</h2>
+                <p>投資の世界は多様なアプローチで構成されています。ご自身のスタイルに合った方法を見つけましょう。</p>
+            </div>
             
-            <div class="cards">
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="investment-grid">
+                <div class="investment-item featured">
+                    <div class="investment-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M12 6V12L16 14" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3>長期投資</h3>
-                    <p>長期的な視点で企業の成長に投資する方法です。市場の短期的な変動に影響されにくく、複利効果を最大限に活用できます。</p>
-                    <button class="btn" onclick="opensite()">詳細を確認する</button>
+                    <h3>長期投資戦略</h3>
+                    <p>長期投資は時間の力を味方につける投資手法です。短期的な市場変動に惑わされず、複利効果を最大化します。企業の本質的な成長に投資し、5年、10年、あるいはそれ以上の期間で資産を育てます。</p>
+                    <p>この戦略の成功には、忍耐力、健全な企業の選定基準、市場の変動に動じない精神力が不可欠です。また、定期的に投資計画を見直し、必要に応じて調整することも重要なポイントです。</p>
                 </div>
                 
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div class="investment-item standard">
+                    <div class="investment-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M4 5H20" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M4 9H20" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M4 13H20" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -375,196 +844,122 @@
                         </svg>
                     </div>
                     <h3>インデックス投資</h3>
-                    <p>市場全体の動きに連動する投資方法で、分散投資と低コストが特徴です。長期的に市場平均のリターンを目指します。</p>
-                    <button class="btn" onclick="opensite()">詳細を確認する</button>
+                    <p>市場全体の動きに連動するインデックス投資は、分散投資と低コストが特徴です。TOPIX、日経平均、S&P500などの指数に連動するファンドを活用し、効率的に資産を増やしていきます。</p>
                 </div>
                 
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div class="investment-item standard">
+                    <div class="investment-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M9 22V12H15V22" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
                     <h3>バリュー投資</h3>
-                    <p>割安な株価の企業を見つけ出し投資する手法です。企業の本質的価値と市場価格の差に着目します。</p>
-                    <button class="btn" onclick="opensite()">詳細を確認する</button>
+                    <p>企業の本質的価値と市場価格の差に着目するバリュー投資。基本的な財務分析と忍耐力を武器に、割安な銘柄を見つけ出し、市場が適正価値を認識するまで保有します。</p>
                 </div>
+                
+                <div class="investment-item standard">
+                    <div class="investment-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 12H18L15 21L9 3L6 12H2" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>ドルコスト平均法</h3>
+                    <p>定期的に一定額を投資することで、市場のタイミングを計る難しさを回避する手法です。高値でも安値でも定期的に買い付けることで、平均購入単価を最適化します。</p>
+                </div>
+            </div>
+            
+            <div class="investment-btn-container">
+                <button class="btn" onclick="opensite()">投資戦略について相談する</button>
             </div>
         </div>
     </section>
 
     <!-- Risk Management Section -->
-    <section class="section" style="background-color: var(--bg-light);">
+    <section class="risk-management">
         <div class="container">
-            <h2>リスク管理</h2>
-            <p class="section-subtitle">投資のリスクを理解し、適切に管理することが長期的な成功への鍵です</p>
-            
-            <div class="cards">
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 8V12" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 16H12.01" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3>分散投資の重要性</h3>
-                    <p>一つの銘柄や業種に集中せず、様々な資産クラスに分散することでリスクを軽減する方法について学びます。</p>
-                    <button class="btn" onclick="opensite()">LINE相談</button>
-                </div>
-                
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 12V22H4V12" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M22 7H2V12H22V7Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 22V7" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 7H16.5C17.163 7 17.7989 6.73661 18.2678 6.26777C18.7366 5.79893 19 5.16304 19 4.5C19 3.83696 18.7366 3.20107 18.2678 2.73223C17.7989 2.26339 17.163 2 16.5 2C13 2 12 7 12 7Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 7H7.5C6.83696 7 6.20107 6.73661 5.73223 6.26777C5.26339 5.79893 5 5.16304 5 4.5C5 3.83696 5.26339 3.20107 5.73223 2.73223C6.20107 2.26339 6.83696 2 7.5 2C11 2 12 7 12 7Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3>リスク許容度の評価</h3>
-                    <p>ご自身のリスク許容度を理解し、それに合った投資戦略を構築する方法を解説します。</p>
-                    <button class="btn" onclick="opensite()">LINE相談</button>
-                </div>
-                
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 8V16" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M8 12H16" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3>損失の管理</h3>
-                    <p>投資において損失は避けられません。損失を効果的に管理し、長期的な投資成功につなげる方法を学びます。</p>
-                    <button class="btn" onclick="opensite()">LINE相談</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Regulations Section -->
-    <section class="section">
-        <div class="container">
-            <h2>法規制と遵守</h2>
-            <p class="section-subtitle">日本の金融規制を理解し、合法的かつ倫理的な投資を行うための知識</p>
-            
-            <div class="cards">
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M9 7H7V17H9V7Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M17 7H15V13H17V7Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3>金融商品取引法</h3>
-                    <p>日本の金融商品取引法の基本的な枠組みと、投資家としての権利と責任について解説します。</p>
-                    <button class="btn" onclick="opensite()">詳しく学ぶ</button>
-                </div>
-                
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M4.93 19.07L7.5 16.5" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M16.5 7.5L19.07 4.93" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3>金融庁の役割</h3>
-                    <p>日本の金融庁がどのように市場を監視し、投資家を保護しているかについて学びます。</p>
-                    <button class="btn" onclick="opensite()">詳しく学ぶ</button>
-                </div>
-                
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3>投資家保護制度</h3>
-                    <p>日本投資者保護基金など、投資家を保護するための各種制度について解説します。</p>
-                    <button class="btn" onclick="opensite()">詳しく学ぶ</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Community Section -->
-    <section class="section community">
-        <div class="container">
-            <h2>株式投資コミュニティ</h2>
-            <p class="section-subtitle">同じ目標を持つ投資家と繋がり、知識と経験を共有しましょう</p>
-            
-            <div class="community-content">
-                <img src="https://www.hrciopki.online/r2.jpg" alt="投資コミュニティ" class="community-image">
-                <p style="margin-bottom: 30px; max-width: 800px;">私たちのコミュニティでは、経験豊富な投資家との交流や、最新の市場動向についての議論が活発に行われています。初心者から上級者まで、それぞれのレベルに合った学びの環境を提供しています。</p>
-                <button class="btn" onclick="opensite()">今すぐLINEで参加する</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Call to Action Section -->
-    <section class="cta">
-        <div class="container">
-            <h2>投資の旅を今すぐ始めましょう</h2>
-            <p style="margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">質の高い投資教育と支援的なコミュニティがあなたの成功をサポートします</p>
-            <button class="btn" onclick="opensite()">LINEで詳細を確認する</button>
-        </div>
-    </section>
-
-    <!-- Footer Section -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>サービス</h3>
-                    <ul>
-                        <li><a href="#" onclick="opensite(); return false;">投資教育</a></li>
-                        <li><a href="#" onclick="opensite(); return false;">市場分析</a></li>
-                        <li><a href="#" onclick="opensite(); return false;">コミュニティ</a></li>
-                        <li><a href="#" onclick="opensite(); return false;">ツール紹介</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>リソース</h3>
-                    <ul>
-                        <li><a href="#" onclick="opensite(); return false;">ブログ</a></li>
-                        <li><a href="#" onclick="opensite(); return false;">用語集</a></li>
-                        <li><a href="#" onclick="opensite(); return false;">FAQ</a></li>
-                        <li><a href="#" onclick="opensite(); return false;">お問い合わせ</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>法的情報</h3>
-                    <ul>
-                        <li><a href="#" onclick="opensite(); return false;">利用規約</a></li>
-                        <li><a href="#" onclick="opensite(); return false;">プライバシーポリシー</a></li>
-                        <li><a href="#" onclick="opensite(); return false;">免責事項</a></li>
-                        <li><a href="#" onclick="opensite(); return false;">リスク開示</a></li>
-                    </ul>
-                </div>
+            <div class="section-header">
+                <h2>リスク管理の基本</h2>
+                <p>成功する投資家は、リターンだけでなくリスクも適切に管理します。賢明なリスク管理がポートフォリオを守ります。</p>
             </div>
             
-            <div class="disclaimer">
-                <p><strong>免責事項:</strong> 当サイトの情報は教育目的のみで提供されており、個別の投資アドバイスを目的としていません。投資には元本割れのリスクが伴います。投資を行う前に、ご自身の財務状況と投資目標を考慮し、必要に応じて専門家に相談することをお勧めします。</p>
-                <p style="margin-top: 15px;">当サイトは金融商品取引法および関連法令を遵守しています。投資判断の最終責任はご自身にあります。過去のパフォーマンスは将来の結果を保証するものではありません。</p>
-                <p style="margin-top: 15px;">© 2023 日本投資家アカデミー. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        function opensite() {
-            // ここにLINEへのリンクを設定します
-            window.open('https://line.me/R/ti/p/@yourlineid', '_blank');
-        }
-    </script>
-</body>
-</html>
+            <div class="risk-grid">
+                <div class="risk-item">
+                    <div class="risk-box">
+                        <div class="risk-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 8V12" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 16H12.01" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>分散投資</h3>
+                        <p>「卵を一つのカゴに盛るな」という格言通り、分散投資はリスク管理の基本です。様々な資産クラス、業種、地域に分散することで、全体的なポートフォリオのリスクを軽減します。</p>
+                    </div>
+                </div>
+                
+                <div class="risk-item">
+                    <div class="risk-box">
+                        <div class="risk-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 12V22H4V12" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M22 7H2V12H22V7Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 22V7" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 7H16.5C17.163 7 17.7989 6.73661 18.2678 6.26777C18.7366 5.79893 19 5.16304 19 4.5C19 3.83696 18.7366 3.20107 18.2678 2.73223C17.7989 2.26339 17.163 2 16.5 2C13 2 12 7 12 7Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 7H7.5C6.83696 7 6.20107 6.73661 5.73223 6.26777C5.26339 5.79893 5 5.16304 5 4.5C5 3.83696 5.26339 3.20107 5.73223 2.73223C6.20107 2.26339 6.83696 2 7.5 2C11 2 12 7 12 7Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>リスク許容度の評価</h3>
+                        <p>個人のリスク許容度は、年齢、金融状況、投資目標によって異なります。自分のリスク許容度を理解し、それに合った投資戦略を構築することが重要です。</p>
+                    </div>
+                </div>
+                
+                <div class="risk-item">
+                    <div class="risk-box">
+                        <div class="risk-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 8V16" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8 12H16" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>損失の管理</h3>
+                        <p>投資において損失は避けられません。あらかじめ損失の許容範囲を設定し、感情に流されることなく、規律を持って投資することが大切です。</p>
+                    </div>
+                </div>
+                
+                <div class="risk-item">
+                    <div class="risk-box">
+                        <div class="risk-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 9H3V8H4V9ZM9 9H10V8H9V9ZM4 8V9H3V8H4ZM9 8V9H10V8H9ZM4 8H9V9H4V8Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15 8H14V9H15V8ZM20 8H21V9H20V8ZM15 9V8H14V9H15ZM20 9V8H21V9H20ZM15 9H20V8H15V9Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 19H13V18H14V19ZM19 19H20V18H19V19ZM14 18V19H13V18H14ZM19 18V19H20V18H19ZM14 18H19V19H14V18Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M5 18H4V19H5V18ZM10 18H11V19H10V18ZM5 19V18H4V19H5ZM10 19V18H11V19H10ZM5 19H10V18H5V19Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 2V22" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 12H22" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>資産配分の重要性</h3>
+                        <p>適切な資産配分は、投資ポートフォリオの基盤となります。株式、債券、現金などの異なる資産クラスをバランスよく組み合わせることが重要です。</p>
+                    </div>
+                </div>
+                
+                <div class="risk-item">
+                    <div class="risk-box">
+                        <div class="risk-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 3H8C9.06087 3 10.0783 3.42143 10.8284 4.17157C11.5786 4.92172 12 5.93913 12 7V21C12 20.2044 11.6839 19.4413 11.1213 18.8787C10.5587 18.3161 9.79565 18 9 18H2V3Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M22 3H16C14.9391 3 13.9217 3.42143 13.1716 4.17157C12.4214 4.92172 12 5.93913 12 7V21C12 20.2044 12.3161 19.4413 12.8787 18.8787C13.4413 18.3161 14.2044 18 15 18H22V3Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>継続的な学習</h3>
+                        <p>市場環境や投資手法は常に進化しています。継続的な学習とリサーチを通じて、リスク管理のスキルを磨き続けることが成功への道です。</p>
+                    </div>
+                </div>
+                
+                <div class="risk-item">
+                    <div class="risk-box">
+                        <div class="risk-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19.4 15C19.2669 15.3016 19.2272 15.6362 19.286 15.9606C19.3448 16.285 19.4995 16.5843 19.73 16.82L19.79 16.88C19.976 17.0657 20.1235 17.2863 20.2241 17.5291C20.3248 17.7719 20.3766 18.0322 20.3766 18.295C20.3766 18.5578 20.3248 18.8181 20.2241 19.0609C20.1235 19.3037 19.976 19.5243 19.79 19.71C19.6043 19.896 19.3837 20.0435 19.1409 20.1441C18.8981 20.2448 18.6378 20.2966 18.375 20.2966C18.1122 20.2966 17.8519 20.2448 17.6091 20.1441C17.3663 20.0435 17.1457 19.896 16.96 19.71L16.9 19.65C16.6643 19.4195 16.365 19.2648 16.0406 19.206C15.7162 19.1472 15.3816 19.1869 15.08 19.32C14.7842 19.4468 14.532 19.6572 14.3543 19.9255C14.1766 20.1938 14.0813 20.5082 14.08 20.83V21C14.08 21.5304 13.8693 22.0391 13.4942 22.4142C13.1191 22.7893 12.6104 23 12.08 23C11.5496 23 11.0409 22.7893 10.6658 22.4142C10.2907 22.0391 10.08 21.5304 10.08 21V20.91C10.0723 20.579 9.96512 20.258 9.77251 19.9887C9.5799 19.7194 9.31074 19.5143 9 19.4C8.69838 19.2669 8.36381 19.2272 8.03941 19.286C7.71502 19.3448 7.41568 19.4995 7.18 19.73L7.12 19.79C6.93425 19.976 6.71368 20.1235 6.47088 20.2241C6.22808 20.3248 5.96783 20.3766 5.705 20.3766C5.44217 20.3766 5.18192 20.3248 4.93912 20.2241C4.69632 20.1235 4.47575 19.976 4.29 19.79C4.10405 19.6043 3.95653 19.3837 3.85588 19.1409C3.75523 18.8981 3.70343 18.6378 3.70343 18.375C3.70343 18.1122 3.75523 17.8519 3.85588 17.6091C3.95653 17.3663 4.10405 17.1457 4.29 16.96L4.35 16.9C4.58054 16.6643 4.73519 16.365 4.794 16.0406C4.85282 15.7162 4.81312 15.3816 4.68 15.08C4.55324 14.7842 4.34276 14.532 4.07447 14.3543C3.80618 14.1766 3.49179 14.0813 3.17 14.08H3C2.46957 14.08 1.96086 13.8693 1.58579 13.4942C1.21071 13.1191 1 12.6104 1 12.08C1 11
