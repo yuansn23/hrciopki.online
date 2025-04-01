@@ -73,6 +73,7 @@
         .hero-content {
             display: flex;
             height: calc(100vh - 80px);
+            width: 100%;
         }
         
         .hero-text {
@@ -244,11 +245,13 @@
             color: #666;
         }
         
+        /* Updated investment grid to fix responsive issues */
         .investment-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-gap: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
             margin-bottom: 60px;
+            justify-content: center;
         }
         
         .investment-item {
@@ -258,6 +261,7 @@
             padding: 40px;
             transition: all 0.3s ease;
             position: relative;
+            flex: 1 1 300px;
         }
         
         .investment-item:hover {
@@ -266,13 +270,9 @@
         }
         
         .investment-item.featured {
-            grid-column: span 6;
-            grid-row: span 2;
+            flex: 1 1 100%;
+            max-width: 100%;
             background: linear-gradient(135deg, #fff 0%, #f9f9f9 100%);
-        }
-        
-        .investment-item.standard {
-            grid-column: span 6;
         }
         
         .investment-item h3 {
@@ -340,13 +340,14 @@
         .risk-grid {
             display: flex;
             flex-wrap: wrap;
-            margin: 0 -20px;
+            gap: 30px;
+            justify-content: center;
         }
         
         .risk-item {
-            flex: 0 0 33.333333%;
-            padding: 0 20px;
-            margin-bottom: 40px;
+            flex: 1 1 300px;
+            max-width: 400px;
+            margin-bottom: 30px;
         }
         
         .risk-box {
@@ -424,6 +425,7 @@
             position: relative;
             margin: 50px auto;
             max-width: 800px;
+            width: 100%;
         }
         
         .community-img img {
@@ -477,6 +479,8 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.07);
             padding: 30px;
             max-width: 380px;
+            width: 100%;
+            flex: 1 1 300px;
             position: relative;
             transition: all 0.3s ease;
         }
@@ -527,6 +531,11 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: #333;
+            flex-shrink: 0;
+        }
+        
+        .testimony-author-info {
+            flex: 1;
         }
         
         .testimony-author-info h4 {
@@ -546,6 +555,7 @@
             flex-wrap: wrap;
             margin-top: 70px;
             margin-bottom: 50px;
+            gap: 20px;
         }
         
         .stat-item {
@@ -553,6 +563,8 @@
             padding: 0 30px;
             margin-bottom: 30px;
             position: relative;
+            flex: 1 1 200px;
+            max-width: 300px;
         }
         
         .stat-item::after {
@@ -640,11 +652,12 @@
             flex-wrap: wrap;
             justify-content: space-between;
             margin-bottom: 60px;
+            gap: 30px;
         }
         
         .footer-column {
-            flex: 1;
-            min-width: 250px;
+            flex: 1 1 250px;
+            min-width: 200px;
             margin-bottom: 30px;
         }
         
@@ -754,25 +767,34 @@
             }
         }
         
+        /* Improved Responsive Design */
+        @media (max-width: 1400px) {
+            .hero h1 {
+                font-size: 3.8rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.8rem;
+            }
+        }
+        
         @media (max-width: 1200px) {
             .hero h1 {
                 font-size: 3.5rem;
             }
             
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+            
             .investment-item.featured {
-                grid-column: span 12;
+                flex: 1 1 100%;
+                max-width: 800px;
             }
             
-            .investment-item.standard {
-                grid-column: span 6;
-            }
-            
-            .testimony-container {
-                justify-content: center;
-            }
-            
-            .testimony-card {
-                flex: 0 0 calc(50% - 30px);
+            .investment-item {
+                flex: 1 1 400px;
+                max-width: 400px;
             }
         }
         
@@ -808,29 +830,20 @@
                 display: none;
             }
             
-            .investment-item.standard {
-                grid-column: span 12;
+            .section-header h2 {
+                font-size: 2.3rem;
             }
             
-            .risk-item {
-                flex: 0 0 50%;
-            }
-            
-            .testimony-card {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-            
-            .stat-item {
-                flex: 0 0 50%;
-            }
-            
-            .stat-item:nth-child(even)::after {
+            .stat-item::after {
                 display: none;
             }
         }
         
         @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -840,11 +853,32 @@
             }
             
             .section-header h2 {
-                font-size: 2.5rem;
+                font-size: 2rem;
+            }
+            
+            .investment-grid {
+                gap: 20px;
+            }
+            
+            .investment-item {
+                flex: 1 1 100%;
+                max-width: 100%;
+                padding: 30px;
             }
             
             .risk-item {
-                flex: 0 0 100%;
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+            
+            .btn {
+                padding: 15px 30px;
+                font-size: 16px;
+            }
+            
+            .testimony-card {
+                flex: 1 1 100%;
+                max-width: 100%;
             }
             
             .line-icon {
@@ -858,12 +892,45 @@
                 height: 30px;
             }
             
-            .stat-item {
-                flex: 0 0 100%;
+            .community-img::before {
+                top: 10px;
+                left: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
             }
             
-            .stat-item::after {
-                display: none;
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .investment-item h3, .risk-box h3 {
+                font-size: 1.5rem;
+            }
+            
+            .risk-box {
+                padding: 25px;
+            }
+            
+            .testimony-author-img {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .testimony-card {
+                padding: 25px 20px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .stat-label {
+                font-size: 1rem;
             }
         }
     </style>
@@ -926,7 +993,7 @@
                     <p>この戦略の成功には、忍耐力、健全な企業の選定基準、市場の変動に動じない精神力が不可欠です。また、定期的に投資計画を見直し、必要に応じて調整することも重要なポイントです。</p>
                 </div>
                 
-                <div class="investment-item standard">
+                <div class="investment-item">
                     <div class="investment-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M4 5H20" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -939,7 +1006,7 @@
                     <p>市場全体の動きに連動するインデックス投資は、分散投資と低コストが特徴です。TOPIX、日経平均、S&P500などの指数に連動するファンドを活用し、効率的に資産を増やしていきます。</p>
                 </div>
                 
-                <div class="investment-item standard">
+                <div class="investment-item">
                     <div class="investment-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -950,7 +1017,7 @@
                     <p>企業の本質的価値と市場価格の差に着目するバリュー投資。基本的な財務分析と忍耐力を武器に、割安な銘柄を見つけ出し、市場が適正価値を認識するまで保有します。</p>
                 </div>
                 
-                <div class="investment-item standard">
+                <div class="investment-item">
                     <div class="investment-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M22 12H18L15 21L9 3L6 12H2" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
